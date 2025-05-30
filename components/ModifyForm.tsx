@@ -22,7 +22,7 @@ export default function ModifyForm({ post }: { post: PostType }) {
         router.push('/')
     }
     return (
-        < form className='border flex flex-col h-42 justify-around' onSubmit={(ev: React.FormEvent<HTMLFormElement>) => {
+        < form className='border flex flex-col h-42 justify-around hidden' onSubmit={(ev: React.FormEvent<HTMLFormElement>) => {
             ev.preventDefault();
             handleModify(post.id)
         }}>

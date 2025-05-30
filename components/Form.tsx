@@ -2,7 +2,7 @@
 import createPost from '@/actions/create-post';
 
 export default function Form() {
-    return <form className='border flex flex-col h-42 justify-around' action={createPost}>
+    return <form className='border flex flex-col h-42 justify-around hidden' action={createPost}>
         <div className='field flex'>
             <label htmlFor='title'>Title</label>
             <input id='title' name='title' placeholder='Enter your title'/>
