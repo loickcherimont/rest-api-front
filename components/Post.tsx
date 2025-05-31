@@ -1,8 +1,8 @@
 'use client'
 
 import Image from 'next/image';
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import BlogLink from './BlogLink';
 
 type PostProps = {
     id: string;
@@ -11,6 +11,9 @@ type PostProps = {
 }
 
 export default function Post({ id, postTitle, content }: PostProps) {
+
+    // To use later refresh method
+    const router = useRouter()
     // To remove a post
     const handleDelete = async (id: string) => {
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_HOST}/post/${id}`, {
@@ -21,7 +24,9 @@ export default function Post({ id, postTitle, content }: PostProps) {
         });
         const data = await response.json();
         console.log('Removed: ' + data);
-        redirect('/');
+        
+        // To reload the path '/'
+        router.refresh();
     }
 
     return (
@@ -36,13 +41,13 @@ export default function Post({ id, postTitle, content }: PostProps) {
                 <div className='flex flex-col ms-5'>
                     <h3 className='font-semibold'>{postTitle}</h3>
                     {/* .truncate to avoid text wrapping */}
-                    <p className='italic truncate'>{content}</p>
+                    <p className='italic truncate w-32 md:max-w-96'>{content}</p>
                 </div>
                 {/* Buttons */}
                 <div className='flex md:justify-end md:space-x-5 md:me-3 justify-around'>
                     <button onClick={() => handleDelete(id)} className='text-red-500 cursor-pointer hover:underline'>Delete</button>
                     {/* // Show a specific post */}
-                    <Link href={`/post/${id}`} className='text-blue-500 hover:underline'>See details</Link>
+                    <BlogLink href={`/post/${id}`}>See details</BlogLink>
                 </div>
             </div>
         </div>

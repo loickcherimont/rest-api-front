@@ -1,8 +1,8 @@
 import { PostType } from '@/app/types/definitions';
-import Header from '@/components/Header';
 import ModifyForm from '@/components/ModifyForm';
 import Image from 'next/image';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 export default async function Page({
     params,
@@ -17,12 +17,20 @@ export default async function Page({
             'Content-Type': 'application/json'
         },
     });
+    if(!response.ok) {
+        console.error(response);
+    }
     const post: PostType = await response.json();
 
-    return <div id={post.id} className='bg-slate-200 h-full'>
-        <Header />
+    // verify if post contains 'id' a required property of PostType
+    // If not there is an error
+    if(post.id === undefined || post.id === null) {
+        notFound()
+    }
+
+    return <div id={post.id} className='bg-slate-200 h-full flex flex-col items-center'>
         {/* Detailed informations for the selected post */}
-        <h2 className='text-xl text-slate-600 font-bold p-3 uppercase'>{post.title}</h2>
+        <h3 className='text-xl text-slate-600 font-bold p-3 uppercase'>{post.title}</h3>
         {/* Image in real size */}
         <div className='flex justify-center'>
             <Image src='/sample-image.png' alt='Sample image' width={400} height={0} className='rounded-lg' />
@@ -34,6 +42,7 @@ export default async function Page({
         </div>
 
         {/* /* ModifyForm.tsx - DON'T FORGET TO DISABLE .hidden CLASS AFTER STYLING STEPS */}
+        <h3 className='text-xl text-slate-600 font-bold p-3 uppercase'>Modify this post</h3>
         <ModifyForm post={post} />
     </div>
 }

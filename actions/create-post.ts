@@ -15,6 +15,10 @@ export default async function createPost(formData: FormData) {
     })
     const data = await response.json();
     console.log(data);
+    if(!response.ok) {
+        console.error(response);
+        return
+    }
     
     return redirect('/');
 } 

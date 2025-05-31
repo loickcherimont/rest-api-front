@@ -22,19 +22,22 @@ export default function ModifyForm({ post }: { post: PostType }) {
         router.push('/')
     }
     return (
-        < form className='border flex flex-col h-42 justify-around hidden' onSubmit={(ev: React.FormEvent<HTMLFormElement>) => {
+        < form className='flex flex-col justify-around space-y-6 bg-white' onSubmit={(ev: React.FormEvent<HTMLFormElement>) => {
             ev.preventDefault();
             handleModify(post.id)
         }}>
-            <div className='field flex'>
-                <label htmlFor='title'>Title</label>
-                <input id='title' name='title' placeholder='Enter your title' value={title} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => setTitle(ev.currentTarget.value)} />
+            {/* Title field */}
+            <div className='field flex flex-col space-y-3'>
+                <label htmlFor='title' className='text-slate-700'>Title</label>
+                <input id='title' name='title' placeholder='Enter the new title' value={title} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => setTitle(ev.currentTarget.value)} required />
             </div>
-            <div className='field flex'>
+            {/* Body field */}
+            <div className='field flex flex-col space-y-3'>
                 <label htmlFor='body'>Body</label>
-                <textarea id='body' name='body' placeholder='Write something about content' rows={4} cols={40} onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>) => setBody(ev.currentTarget.value)} value={body} />
+                <textarea id='body' name='body' placeholder='Write something different about the content' rows={4} cols={40} onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>) => setBody(ev.currentTarget.value)} value={body} required />
             </div>
-            <input type='submit' value='Submit' title='Create a post' className='bg-blue-500 w-32 cursor-pointer' />
+            {/* <input type='submit' value='Submit' title='Create a post' className='bg-blue-500 w-32 cursor-pointer' /> */}
+            <input type='submit' value='Modify' title='Modify this post' className='bg-blue-500 rounded px-3 py-2 text-white cursor-pointer transition ease-in duration-300 hover:bg-blue-700 w-32 self-center' />
         </form >
     )
 
