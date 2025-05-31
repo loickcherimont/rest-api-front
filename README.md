@@ -44,5 +44,5 @@ If front and back are ready, launch `npm run dev`.
 <div align='center'>
 
 &copy; 2025 [Loick Cherimont](https://github.com/loickcherimont).  
-Licensed under the [license_name](# 'link to the license').
+Licensed under the [MIT License](https://github.com/loickcherimont/rest-api-front/blob/main/LICENSE).
 </div>
